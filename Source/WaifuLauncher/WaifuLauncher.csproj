@@ -6,10 +6,38 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <PackageId>NioZero.WaifuLauncher</PackageId>
+    <Title>Simple Waifu Launcher</Title>
+    <Authors>NioZero</Authors>
+    <Product>WaifuLauncher</Product>
+    <RepositoryUrl>https://github.com/NioZero/WaifuLauncher</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="5.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="GlobalSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>GlobalSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="GlobalSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>GlobalSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\icon.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

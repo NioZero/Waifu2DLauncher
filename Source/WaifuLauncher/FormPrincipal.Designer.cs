@@ -45,10 +45,6 @@ partial class FormPrincipal
         txtTargetFolder = new TextBox();
         btnSelectTargetFolder = new Button();
         tabPage2 = new TabPage();
-        groupImageFormat = new GroupBox();
-        rdBtnWebp = new RadioButton();
-        rdBtnImageFormatJpg = new RadioButton();
-        rdBtnImageFormatPng = new RadioButton();
         groupDenoiseLevel = new GroupBox();
         numericDenoiseLevel = new NumericUpDown();
         groupTileSize = new GroupBox();
@@ -57,14 +53,18 @@ partial class FormPrincipal
         groupModelPath = new GroupBox();
         comboBoxModelPath = new ComboBox();
         groupUpscaleRatio = new GroupBox();
-        rdBtnUpscaleRatio32 = new RadioButton();
-        rdBtnUpscaleRatio16 = new RadioButton();
-        rdBtnUpscaleRatio8 = new RadioButton();
-        rdBtnUpscaleRatio4 = new RadioButton();
-        rdBtnUpscaleRatio2 = new RadioButton();
         rdBtnUpscaleRatio1 = new RadioButton();
+        rdBtnUpscaleRatio2 = new RadioButton();
+        rdBtnUpscaleRatio4 = new RadioButton();
+        rdBtnUpscaleRatio8 = new RadioButton();
+        rdBtnUpscaleRatio16 = new RadioButton();
+        rdBtnUpscaleRatio32 = new RadioButton();
         groupTtaMode = new GroupBox();
         checkBoxTtaMode = new CheckBox();
+        groupImageFormat = new GroupBox();
+        rdBtnImageFormatJpg = new RadioButton();
+        rdBtnImageFormatPng = new RadioButton();
+        rdBtnImageFormatWebp = new RadioButton();
         btnProcess = new Button();
         btnExportBatch = new Button();
         folderBrowserTargetFolder = new FolderBrowserDialog();
@@ -74,7 +74,6 @@ partial class FormPrincipal
         tabPage1.SuspendLayout();
         groupTargetFolder.SuspendLayout();
         tabPage2.SuspendLayout();
-        groupImageFormat.SuspendLayout();
         groupDenoiseLevel.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numericDenoiseLevel).BeginInit();
         groupTileSize.SuspendLayout();
@@ -82,6 +81,7 @@ partial class FormPrincipal
         groupModelPath.SuspendLayout();
         groupUpscaleRatio.SuspendLayout();
         groupTtaMode.SuspendLayout();
+        groupImageFormat.SuspendLayout();
         SuspendLayout();
         // 
         // txtWaifuLocation
@@ -90,7 +90,7 @@ partial class FormPrincipal
         txtWaifuLocation.Location = new Point(6, 22);
         txtWaifuLocation.Name = "txtWaifuLocation";
         txtWaifuLocation.ReadOnly = true;
-        txtWaifuLocation.Size = new Size(663, 23);
+        txtWaifuLocation.Size = new Size(603, 23);
         txtWaifuLocation.TabIndex = 0;
         // 
         // groupWaifuLocation
@@ -100,7 +100,7 @@ partial class FormPrincipal
         groupWaifuLocation.Controls.Add(btnFindWaifuLocation);
         groupWaifuLocation.Location = new Point(6, 6);
         groupWaifuLocation.Name = "groupWaifuLocation";
-        groupWaifuLocation.Size = new Size(756, 56);
+        groupWaifuLocation.Size = new Size(696, 56);
         groupWaifuLocation.TabIndex = 1;
         groupWaifuLocation.TabStop = false;
         groupWaifuLocation.Text = "Ubicación de Waifu2x";
@@ -108,13 +108,12 @@ partial class FormPrincipal
         // btnFindWaifuLocation
         // 
         btnFindWaifuLocation.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        btnFindWaifuLocation.Location = new Point(675, 22);
+        btnFindWaifuLocation.Location = new Point(615, 22);
         btnFindWaifuLocation.Name = "btnFindWaifuLocation";
         btnFindWaifuLocation.Size = new Size(75, 24);
         btnFindWaifuLocation.TabIndex = 1;
         btnFindWaifuLocation.Text = "Buscar";
         btnFindWaifuLocation.UseVisualStyleBackColor = true;
-        btnFindWaifuLocation.Click += btnFindWaifuLocation_Click;
         // 
         // listFilesLocation
         // 
@@ -122,7 +121,7 @@ partial class FormPrincipal
         listFilesLocation.LargeImageList = imageList;
         listFilesLocation.Location = new Point(6, 22);
         listFilesLocation.Name = "listFilesLocation";
-        listFilesLocation.Size = new Size(744, 150);
+        listFilesLocation.Size = new Size(684, 170);
         listFilesLocation.SmallImageList = imageList;
         listFilesLocation.TabIndex = 2;
         listFilesLocation.UseCompatibleStateImageBehavior = false;
@@ -140,7 +139,7 @@ partial class FormPrincipal
         groupFiles.Controls.Add(btnSelectFiles);
         groupFiles.Location = new Point(6, 68);
         groupFiles.Name = "groupFiles";
-        groupFiles.Size = new Size(756, 207);
+        groupFiles.Size = new Size(696, 227);
         groupFiles.TabIndex = 3;
         groupFiles.TabStop = false;
         groupFiles.Text = "Lista de imágenes";
@@ -148,9 +147,9 @@ partial class FormPrincipal
         // btnSelectFiles
         // 
         btnSelectFiles.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        btnSelectFiles.Location = new Point(6, 178);
+        btnSelectFiles.Location = new Point(6, 198);
         btnSelectFiles.Name = "btnSelectFiles";
-        btnSelectFiles.Size = new Size(744, 23);
+        btnSelectFiles.Size = new Size(684, 23);
         btnSelectFiles.TabIndex = 3;
         btnSelectFiles.Text = "Seleccionar imágenes";
         btnSelectFiles.UseVisualStyleBackColor = true;
@@ -171,9 +170,10 @@ partial class FormPrincipal
         tabsPrincipal.Controls.Add(tabPage1);
         tabsPrincipal.Controls.Add(tabPage2);
         tabsPrincipal.Location = new Point(12, 12);
+        tabsPrincipal.MinimumSize = new Size(500, 320);
         tabsPrincipal.Name = "tabsPrincipal";
         tabsPrincipal.SelectedIndex = 0;
-        tabsPrincipal.Size = new Size(776, 371);
+        tabsPrincipal.Size = new Size(716, 391);
         tabsPrincipal.TabIndex = 4;
         // 
         // tabPage1
@@ -184,7 +184,7 @@ partial class FormPrincipal
         tabPage1.Location = new Point(4, 24);
         tabPage1.Name = "tabPage1";
         tabPage1.Padding = new Padding(3);
-        tabPage1.Size = new Size(768, 343);
+        tabPage1.Size = new Size(708, 363);
         tabPage1.TabIndex = 0;
         tabPage1.Text = "Imagenes";
         tabPage1.UseVisualStyleBackColor = true;
@@ -194,9 +194,9 @@ partial class FormPrincipal
         groupTargetFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         groupTargetFolder.Controls.Add(txtTargetFolder);
         groupTargetFolder.Controls.Add(btnSelectTargetFolder);
-        groupTargetFolder.Location = new Point(6, 281);
+        groupTargetFolder.Location = new Point(6, 301);
         groupTargetFolder.Name = "groupTargetFolder";
-        groupTargetFolder.Size = new Size(756, 56);
+        groupTargetFolder.Size = new Size(696, 56);
         groupTargetFolder.TabIndex = 2;
         groupTargetFolder.TabStop = false;
         groupTargetFolder.Text = "Carpeta destino";
@@ -207,79 +207,34 @@ partial class FormPrincipal
         txtTargetFolder.Location = new Point(6, 22);
         txtTargetFolder.Name = "txtTargetFolder";
         txtTargetFolder.ReadOnly = true;
-        txtTargetFolder.Size = new Size(651, 23);
+        txtTargetFolder.Size = new Size(591, 23);
         txtTargetFolder.TabIndex = 0;
         // 
         // btnSelectTargetFolder
         // 
         btnSelectTargetFolder.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        btnSelectTargetFolder.Location = new Point(663, 20);
+        btnSelectTargetFolder.Location = new Point(603, 20);
         btnSelectTargetFolder.Name = "btnSelectTargetFolder";
         btnSelectTargetFolder.Size = new Size(87, 24);
         btnSelectTargetFolder.TabIndex = 1;
         btnSelectTargetFolder.Text = "Seleccionar";
         btnSelectTargetFolder.UseVisualStyleBackColor = true;
-        btnSelectTargetFolder.Click += btnSelectTargetFolder_Click;
         // 
         // tabPage2
         // 
-        tabPage2.Controls.Add(groupImageFormat);
         tabPage2.Controls.Add(groupDenoiseLevel);
         tabPage2.Controls.Add(groupTileSize);
         tabPage2.Controls.Add(groupModelPath);
         tabPage2.Controls.Add(groupUpscaleRatio);
         tabPage2.Controls.Add(groupTtaMode);
+        tabPage2.Controls.Add(groupImageFormat);
         tabPage2.Location = new Point(4, 24);
         tabPage2.Name = "tabPage2";
         tabPage2.Padding = new Padding(3);
-        tabPage2.Size = new Size(768, 343);
+        tabPage2.Size = new Size(708, 363);
         tabPage2.TabIndex = 1;
         tabPage2.Text = "Opciones";
         tabPage2.UseVisualStyleBackColor = true;
-        // 
-        // groupImageFormat
-        // 
-        groupImageFormat.Controls.Add(rdBtnWebp);
-        groupImageFormat.Controls.Add(rdBtnImageFormatJpg);
-        groupImageFormat.Controls.Add(rdBtnImageFormatPng);
-        groupImageFormat.Location = new Point(275, 66);
-        groupImageFormat.Name = "groupImageFormat";
-        groupImageFormat.Size = new Size(121, 109);
-        groupImageFormat.TabIndex = 4;
-        groupImageFormat.TabStop = false;
-        groupImageFormat.Text = "Output format";
-        // 
-        // rdBtnWebp
-        // 
-        rdBtnWebp.AutoSize = true;
-        rdBtnWebp.Location = new Point(6, 72);
-        rdBtnWebp.Name = "rdBtnWebp";
-        rdBtnWebp.Size = new Size(54, 19);
-        rdBtnWebp.TabIndex = 8;
-        rdBtnWebp.Text = "webp";
-        rdBtnWebp.UseVisualStyleBackColor = true;
-        // 
-        // rdBtnImageFormatJpg
-        // 
-        rdBtnImageFormatJpg.AutoSize = true;
-        rdBtnImageFormatJpg.Location = new Point(6, 22);
-        rdBtnImageFormatJpg.Name = "rdBtnImageFormatJpg";
-        rdBtnImageFormatJpg.Size = new Size(42, 19);
-        rdBtnImageFormatJpg.TabIndex = 6;
-        rdBtnImageFormatJpg.Text = "jpg";
-        rdBtnImageFormatJpg.UseVisualStyleBackColor = true;
-        // 
-        // rdBtnImageFormatPng
-        // 
-        rdBtnImageFormatPng.AutoSize = true;
-        rdBtnImageFormatPng.Checked = true;
-        rdBtnImageFormatPng.Location = new Point(6, 47);
-        rdBtnImageFormatPng.Name = "rdBtnImageFormatPng";
-        rdBtnImageFormatPng.Size = new Size(46, 19);
-        rdBtnImageFormatPng.TabIndex = 7;
-        rdBtnImageFormatPng.TabStop = true;
-        rdBtnImageFormatPng.Text = "png";
-        rdBtnImageFormatPng.UseVisualStyleBackColor = true;
         // 
         // groupDenoiseLevel
         // 
@@ -356,12 +311,12 @@ partial class FormPrincipal
         // 
         // groupUpscaleRatio
         // 
-        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio32);
-        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio16);
-        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio8);
-        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio4);
-        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio2);
         groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio1);
+        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio2);
+        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio4);
+        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio8);
+        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio16);
+        groupUpscaleRatio.Controls.Add(rdBtnUpscaleRatio32);
         groupUpscaleRatio.Location = new Point(6, 66);
         groupUpscaleRatio.Name = "groupUpscaleRatio";
         groupUpscaleRatio.Size = new Size(117, 109);
@@ -369,45 +324,15 @@ partial class FormPrincipal
         groupUpscaleRatio.TabStop = false;
         groupUpscaleRatio.Text = "Upscale Ratio";
         // 
-        // rdBtnUpscaleRatio32
+        // rdBtnUpscaleRatio1
         // 
-        rdBtnUpscaleRatio32.AutoSize = true;
-        rdBtnUpscaleRatio32.Location = new Point(55, 72);
-        rdBtnUpscaleRatio32.Name = "rdBtnUpscaleRatio32";
-        rdBtnUpscaleRatio32.Size = new Size(37, 19);
-        rdBtnUpscaleRatio32.TabIndex = 5;
-        rdBtnUpscaleRatio32.Text = "32";
-        rdBtnUpscaleRatio32.UseVisualStyleBackColor = true;
-        // 
-        // rdBtnUpscaleRatio16
-        // 
-        rdBtnUpscaleRatio16.AutoSize = true;
-        rdBtnUpscaleRatio16.Location = new Point(55, 47);
-        rdBtnUpscaleRatio16.Name = "rdBtnUpscaleRatio16";
-        rdBtnUpscaleRatio16.Size = new Size(37, 19);
-        rdBtnUpscaleRatio16.TabIndex = 4;
-        rdBtnUpscaleRatio16.Text = "16";
-        rdBtnUpscaleRatio16.UseVisualStyleBackColor = true;
-        // 
-        // rdBtnUpscaleRatio8
-        // 
-        rdBtnUpscaleRatio8.AutoSize = true;
-        rdBtnUpscaleRatio8.Location = new Point(55, 22);
-        rdBtnUpscaleRatio8.Name = "rdBtnUpscaleRatio8";
-        rdBtnUpscaleRatio8.Size = new Size(31, 19);
-        rdBtnUpscaleRatio8.TabIndex = 3;
-        rdBtnUpscaleRatio8.Text = "8";
-        rdBtnUpscaleRatio8.UseVisualStyleBackColor = true;
-        // 
-        // rdBtnUpscaleRatio4
-        // 
-        rdBtnUpscaleRatio4.AutoSize = true;
-        rdBtnUpscaleRatio4.Location = new Point(6, 72);
-        rdBtnUpscaleRatio4.Name = "rdBtnUpscaleRatio4";
-        rdBtnUpscaleRatio4.Size = new Size(31, 19);
-        rdBtnUpscaleRatio4.TabIndex = 2;
-        rdBtnUpscaleRatio4.Text = "4";
-        rdBtnUpscaleRatio4.UseVisualStyleBackColor = true;
+        rdBtnUpscaleRatio1.AutoSize = true;
+        rdBtnUpscaleRatio1.Location = new Point(6, 22);
+        rdBtnUpscaleRatio1.Name = "rdBtnUpscaleRatio1";
+        rdBtnUpscaleRatio1.Size = new Size(31, 19);
+        rdBtnUpscaleRatio1.TabIndex = 0;
+        rdBtnUpscaleRatio1.Text = "1";
+        rdBtnUpscaleRatio1.UseVisualStyleBackColor = true;
         // 
         // rdBtnUpscaleRatio2
         // 
@@ -421,15 +346,45 @@ partial class FormPrincipal
         rdBtnUpscaleRatio2.Text = "2";
         rdBtnUpscaleRatio2.UseVisualStyleBackColor = true;
         // 
-        // rdBtnUpscaleRatio1
+        // rdBtnUpscaleRatio4
         // 
-        rdBtnUpscaleRatio1.AutoSize = true;
-        rdBtnUpscaleRatio1.Location = new Point(6, 22);
-        rdBtnUpscaleRatio1.Name = "rdBtnUpscaleRatio1";
-        rdBtnUpscaleRatio1.Size = new Size(31, 19);
-        rdBtnUpscaleRatio1.TabIndex = 0;
-        rdBtnUpscaleRatio1.Text = "1";
-        rdBtnUpscaleRatio1.UseVisualStyleBackColor = true;
+        rdBtnUpscaleRatio4.AutoSize = true;
+        rdBtnUpscaleRatio4.Location = new Point(6, 72);
+        rdBtnUpscaleRatio4.Name = "rdBtnUpscaleRatio4";
+        rdBtnUpscaleRatio4.Size = new Size(31, 19);
+        rdBtnUpscaleRatio4.TabIndex = 2;
+        rdBtnUpscaleRatio4.Text = "4";
+        rdBtnUpscaleRatio4.UseVisualStyleBackColor = true;
+        // 
+        // rdBtnUpscaleRatio8
+        // 
+        rdBtnUpscaleRatio8.AutoSize = true;
+        rdBtnUpscaleRatio8.Location = new Point(55, 22);
+        rdBtnUpscaleRatio8.Name = "rdBtnUpscaleRatio8";
+        rdBtnUpscaleRatio8.Size = new Size(31, 19);
+        rdBtnUpscaleRatio8.TabIndex = 3;
+        rdBtnUpscaleRatio8.Text = "8";
+        rdBtnUpscaleRatio8.UseVisualStyleBackColor = true;
+        // 
+        // rdBtnUpscaleRatio16
+        // 
+        rdBtnUpscaleRatio16.AutoSize = true;
+        rdBtnUpscaleRatio16.Location = new Point(55, 47);
+        rdBtnUpscaleRatio16.Name = "rdBtnUpscaleRatio16";
+        rdBtnUpscaleRatio16.Size = new Size(37, 19);
+        rdBtnUpscaleRatio16.TabIndex = 4;
+        rdBtnUpscaleRatio16.Text = "16";
+        rdBtnUpscaleRatio16.UseVisualStyleBackColor = true;
+        // 
+        // rdBtnUpscaleRatio32
+        // 
+        rdBtnUpscaleRatio32.AutoSize = true;
+        rdBtnUpscaleRatio32.Location = new Point(55, 72);
+        rdBtnUpscaleRatio32.Name = "rdBtnUpscaleRatio32";
+        rdBtnUpscaleRatio32.Size = new Size(37, 19);
+        rdBtnUpscaleRatio32.TabIndex = 5;
+        rdBtnUpscaleRatio32.Text = "32";
+        rdBtnUpscaleRatio32.UseVisualStyleBackColor = true;
         // 
         // groupTtaMode
         // 
@@ -450,21 +405,66 @@ partial class FormPrincipal
         checkBoxTtaMode.Text = "Enable TTA Mode";
         checkBoxTtaMode.UseVisualStyleBackColor = true;
         // 
+        // groupImageFormat
+        // 
+        groupImageFormat.Controls.Add(rdBtnImageFormatJpg);
+        groupImageFormat.Controls.Add(rdBtnImageFormatPng);
+        groupImageFormat.Controls.Add(rdBtnImageFormatWebp);
+        groupImageFormat.Location = new Point(275, 66);
+        groupImageFormat.Name = "groupImageFormat";
+        groupImageFormat.Size = new Size(121, 109);
+        groupImageFormat.TabIndex = 4;
+        groupImageFormat.TabStop = false;
+        groupImageFormat.Text = "Output format";
+        // 
+        // rdBtnImageFormatJpg
+        // 
+        rdBtnImageFormatJpg.AutoSize = true;
+        rdBtnImageFormatJpg.Location = new Point(6, 22);
+        rdBtnImageFormatJpg.Name = "rdBtnImageFormatJpg";
+        rdBtnImageFormatJpg.Size = new Size(42, 19);
+        rdBtnImageFormatJpg.TabIndex = 6;
+        rdBtnImageFormatJpg.Text = "jpg";
+        rdBtnImageFormatJpg.UseVisualStyleBackColor = true;
+        // 
+        // rdBtnImageFormatPng
+        // 
+        rdBtnImageFormatPng.AutoSize = true;
+        rdBtnImageFormatPng.Checked = true;
+        rdBtnImageFormatPng.Location = new Point(6, 47);
+        rdBtnImageFormatPng.Name = "rdBtnImageFormatPng";
+        rdBtnImageFormatPng.Size = new Size(46, 19);
+        rdBtnImageFormatPng.TabIndex = 7;
+        rdBtnImageFormatPng.TabStop = true;
+        rdBtnImageFormatPng.Text = "png";
+        rdBtnImageFormatPng.UseVisualStyleBackColor = true;
+        // 
+        // rdBtnImageFormatWebp
+        // 
+        rdBtnImageFormatWebp.AutoSize = true;
+        rdBtnImageFormatWebp.Location = new Point(6, 72);
+        rdBtnImageFormatWebp.Name = "rdBtnImageFormatWebp";
+        rdBtnImageFormatWebp.Size = new Size(54, 19);
+        rdBtnImageFormatWebp.TabIndex = 8;
+        rdBtnImageFormatWebp.Text = "webp";
+        rdBtnImageFormatWebp.UseVisualStyleBackColor = true;
+        // 
         // btnProcess
         // 
         btnProcess.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnProcess.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point);
-        btnProcess.Location = new Point(647, 389);
+        btnProcess.Location = new Point(566, 409);
         btnProcess.Name = "btnProcess";
         btnProcess.Size = new Size(141, 49);
         btnProcess.TabIndex = 5;
         btnProcess.Text = "Procesar";
         btnProcess.UseVisualStyleBackColor = false;
+        btnProcess.Click += btnProcess_Click;
         // 
         // btnExportBatch
         // 
         btnExportBatch.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-        btnExportBatch.Location = new Point(12, 415);
+        btnExportBatch.Location = new Point(12, 435);
         btnExportBatch.Name = "btnExportBatch";
         btnExportBatch.Size = new Size(127, 23);
         btnExportBatch.TabIndex = 6;
@@ -479,13 +479,15 @@ partial class FormPrincipal
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(719, 470);
         Controls.Add(btnExportBatch);
         Controls.Add(btnProcess);
         Controls.Add(tabsPrincipal);
         Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "FormPrincipal";
         Text = "Waifu2x Launcher";
+        FormClosing += FormPrincipal_FormClosing;
+        FormClosed += FormPrincipal_FormClosed;
         Load += FormPrincipal_Load;
         groupWaifuLocation.ResumeLayout(false);
         groupWaifuLocation.PerformLayout();
@@ -495,8 +497,6 @@ partial class FormPrincipal
         groupTargetFolder.ResumeLayout(false);
         groupTargetFolder.PerformLayout();
         tabPage2.ResumeLayout(false);
-        groupImageFormat.ResumeLayout(false);
-        groupImageFormat.PerformLayout();
         groupDenoiseLevel.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)numericDenoiseLevel).EndInit();
         groupTileSize.ResumeLayout(false);
@@ -507,6 +507,8 @@ partial class FormPrincipal
         groupUpscaleRatio.PerformLayout();
         groupTtaMode.ResumeLayout(false);
         groupTtaMode.PerformLayout();
+        groupImageFormat.ResumeLayout(false);
+        groupImageFormat.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -546,7 +548,7 @@ partial class FormPrincipal
     private TextBox txtTargetFolder;
     private Button btnSelectTargetFolder;
     private GroupBox groupImageFormat;
-    private RadioButton rdBtnWebp;
+    private RadioButton rdBtnImageFormatWebp;
     private RadioButton rdBtnImageFormatJpg;
     private RadioButton rdBtnImageFormatPng;
     private FolderBrowserDialog folderBrowserTargetFolder;
