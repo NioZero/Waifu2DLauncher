@@ -1,3 +1,6 @@
+using System.Linq;
+using WaifuLauncher.Utils;
+
 namespace WaifuLauncher;
 
 public partial class FormPrincipal : Form
@@ -27,10 +30,10 @@ public partial class FormPrincipal : Form
     {
         Logger.Trace($"InitializeExtraComponent()");
 
-        txtWaifuLocation.Click += SetWaifuLocation_Event;
+        //txtWaifuLocation.Click += SetWaifuLocation_Event;
         btnFindWaifuLocation.Click += SetWaifuLocation_Event;
 
-        txtTargetFolder.Click += SetTargetFolder_Event;
+        //txtTargetFolder.Click += SetTargetFolder_Event;
         btnSelectTargetFolder.Click += SetTargetFolder_Event;
 
         numericDenoiseLevel.ValueChanged += UpdateSettings_Event;
@@ -187,7 +190,8 @@ public partial class FormPrincipal : Form
                 var item = new ListViewItem()
                 {
                     Text = fileName,
-                    ImageKey = fileName
+                    ImageKey = fileName,
+                    Name = imageFile
                 };
 
                 // Agrego el Item al ListView
@@ -202,6 +206,12 @@ public partial class FormPrincipal : Form
 
         if (folderBrowserTargetFolder.ShowDialog() == DialogResult.OK)
         {
+            if (!FileUtils.IsDirectoryEmpty(folderBrowserTargetFolder.SelectedPath))
+            {
+                var result = MessageBox.Show("El directorio seleccionado no esta vacio. ¿Desea continuar?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.No) return;
+            }
+
             txtTargetFolder.Text = folderBrowserTargetFolder.SelectedPath;
             GlobalSettings.Default.LastTargetFolder = folderBrowserTargetFolder.SelectedPath;
         }
@@ -248,6 +258,20 @@ public partial class FormPrincipal : Form
 
         if (!CheckFormValues())
             return;
+
+        UpdateSettings_Event(this, new EventArgs());
+        GlobalSettings.Default.Save();
+
+        var images = new List<string>();
+
+        foreach (ListViewItem item in listFilesLocation.Items)
+            images.Add(item.Name);
+
+        var form = new FormProcessing()
+        {
+            ImageFiles = images.ToArray()
+        };
+        form.ShowDialog();
     }
 
     #endregion
