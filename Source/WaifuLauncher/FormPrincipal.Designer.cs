@@ -68,6 +68,7 @@ partial class FormPrincipal
         btnProcess = new Button();
         btnExportBatch = new Button();
         folderBrowserTargetFolder = new FolderBrowserDialog();
+        saveFileDialogScript = new SaveFileDialog();
         groupWaifuLocation.SuspendLayout();
         groupFiles.SuspendLayout();
         tabsPrincipal.SuspendLayout();
@@ -125,11 +126,12 @@ partial class FormPrincipal
         listFilesLocation.SmallImageList = imageList;
         listFilesLocation.TabIndex = 2;
         listFilesLocation.UseCompatibleStateImageBehavior = false;
+        listFilesLocation.KeyDown += listFilesLocation_KeyDown;
         // 
         // imageList
         // 
-        imageList.ColorDepth = ColorDepth.Depth8Bit;
-        imageList.ImageSize = new Size(16, 16);
+        imageList.ColorDepth = ColorDepth.Depth16Bit;
+        imageList.ImageSize = new Size(32, 32);
         imageList.TransparentColor = Color.Transparent;
         // 
         // groupFiles
@@ -470,10 +472,15 @@ partial class FormPrincipal
         btnExportBatch.TabIndex = 6;
         btnExportBatch.Text = "Exportar";
         btnExportBatch.UseVisualStyleBackColor = true;
+        btnExportBatch.Click += btnExportBatch_Click;
         // 
         // folderBrowserTargetFolder
         // 
         folderBrowserTargetFolder.RootFolder = Environment.SpecialFolder.MyPictures;
+        // 
+        // saveFileDialogScript
+        // 
+        saveFileDialogScript.Filter = "Batch file (*.bat)|*.bat";
         // 
         // FormPrincipal
         // 
@@ -552,4 +559,5 @@ partial class FormPrincipal
     private RadioButton rdBtnImageFormatJpg;
     private RadioButton rdBtnImageFormatPng;
     private FolderBrowserDialog folderBrowserTargetFolder;
+    private SaveFileDialog saveFileDialogScript;
 }

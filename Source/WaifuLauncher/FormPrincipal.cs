@@ -113,6 +113,16 @@ public partial class FormPrincipal : Form
         return true;
     }
 
+    private string[] GetImages()
+    {
+        var images = new List<string>();
+
+        foreach (ListViewItem item in listFilesLocation.Items)
+            images.Add(item.Name);
+
+        return images.ToArray();
+    }
+
     #endregion
 
     #region events
@@ -121,12 +131,14 @@ public partial class FormPrincipal : Form
     {
         Logger.Trace($"FormPrincipal_Load(sender='{sender}', e='{e}')");
 
+        // Recupero la última ubicación de la aplicación y restauro su ubicación original
         if (GlobalSettings.Default.LastWindowLocation.X > 0 && GlobalSettings.Default.LastWindowLocation.Y > 0)
             Location = GlobalSettings.Default.LastWindowLocation;
 
         if (GlobalSettings.Default.LastWindowSize.Width > 0 && GlobalSettings.Default.LastWindowSize.Height > 0)
             Size = GlobalSettings.Default.LastWindowSize;
 
+        // En caso de que la ventana esté maximizada, aplico el estado
         if (GlobalSettings.Default.LastWindowIsMaximized)
             WindowState = FormWindowState.Maximized;
         else
@@ -137,6 +149,8 @@ public partial class FormPrincipal : Form
     {
         Logger.Trace($"FormPrincipal_FormClosing(sender='{sender}', e='{e}')");
 
+        // Antes de cerrar la aplicación, guardo la posición actual,
+        // el tamaño y el estado de la ventana
         if (WindowState == FormWindowState.Normal)
         {
             GlobalSettings.Default.LastWindowLocation = Location;
@@ -156,6 +170,7 @@ public partial class FormPrincipal : Form
     {
         Logger.Trace($"FormPrincipal_FormClosed(sender='{sender}', e='{e}')");
 
+        // Guardo todos las opciones en el computador
         GlobalSettings.Default.Save();
     }
 
@@ -167,6 +182,8 @@ public partial class FormPrincipal : Form
 
         if (openFileDialogWaifuLocation.ShowDialog() == DialogResult.OK)
         {
+            // Asigno la ruta del binario al TextBox y guardo su ubicación
+            // también en las opciones globales
             txtWaifuLocation.Text = openFileDialogWaifuLocation.FileName;
             GlobalSettings.Default.WaifuLocation = openFileDialogWaifuLocation.FileName;
         }
@@ -183,7 +200,7 @@ public partial class FormPrincipal : Form
                 // Obtengo el nombre del archivo (sin la ruta)
                 var fileName = Path.GetFileName(imageFile);
 
-                // Agrego la imagen a la Lista
+                // Agrego la imagen a la Lista (como icono)
                 imageList.Images.Add(fileName, Image.FromFile(imageFile));
 
                 // Creo un nuevo Item para visualizarlo en el Formulario
@@ -200,18 +217,35 @@ public partial class FormPrincipal : Form
         }
     }
 
+    private void listFilesLocation_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Delete)
+        {
+            // Voy eliminando todos los Itemes uno a uno
+            // Se debe hacer así porque la lista se va modificando cada vez que elimino un elemento
+            while (listFilesLocation.SelectedItems.Count > 0)
+            {
+                listFilesLocation.Items.RemoveAt(listFilesLocation.SelectedItems[0].Index);
+            }
+        }
+    }
+
     private void SetTargetFolder_Event(object sender, EventArgs e)
     {
         Logger.Trace($"SetTargetFolder_Event(sender='{sender}', e='{e}')");
 
         if (folderBrowserTargetFolder.ShowDialog() == DialogResult.OK)
         {
+            // Sólo un aviso en caso de detectar que el directorio tiene algun archivo
+            // puesto que se podría pisar con el resultado del proceso
             if (!FileUtils.IsDirectoryEmpty(folderBrowserTargetFolder.SelectedPath))
             {
                 var result = MessageBox.Show("El directorio seleccionado no esta vacio. ¿Desea continuar?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No) return;
             }
 
+            // Asigno la ruta de la carpeta al TextBox y guardo su ubicación
+            // también en las opciones globales
             txtTargetFolder.Text = folderBrowserTargetFolder.SelectedPath;
             GlobalSettings.Default.LastTargetFolder = folderBrowserTargetFolder.SelectedPath;
         }
@@ -252,26 +286,60 @@ public partial class FormPrincipal : Form
 
     #endregion
 
+    private void btnExportBatch_Click(object sender, EventArgs e)
+    {
+        Logger.Trace($"btnProcess_Click(sender='{sender}', e='{e}')");
+
+        // Verifico que todas las opciones esten presentes antes de continuar
+        if (!CheckFormValues())
+            return;
+
+        // Actualizo las opciones en caso de que no se haya realizado previamente
+        UpdateSettings_Event(this, new EventArgs());
+        GlobalSettings.Default.Save();
+
+        // Inicializo el formulario de procesamiento
+        // y le paso la ruta de todas las imagenes seleccionadas
+        var form = new FormProcessing()
+        {
+            ImageFiles = GetImages()
+        };
+
+        // Recupero la lista de comandos
+        var commands = form.GetCommands();
+
+        // Ventana para guardar la lista de comandos
+        if (saveFileDialogScript.ShowDialog() == DialogResult.OK)
+        {
+            File.WriteAllText(saveFileDialogScript.FileName, commands);
+
+            MessageBox.Show("Archivo de script guardado con éxito", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+    }
+
     private void btnProcess_Click(object sender, EventArgs e)
     {
         Logger.Trace($"btnProcess_Click(sender='{sender}', e='{e}')");
 
+        // Verifico que todas las opciones esten presentes antes de continuar
         if (!CheckFormValues())
             return;
 
+        // Actualizo las opciones en caso de que no se haya realizado previamente
         UpdateSettings_Event(this, new EventArgs());
         GlobalSettings.Default.Save();
 
-        var images = new List<string>();
-
-        foreach (ListViewItem item in listFilesLocation.Items)
-            images.Add(item.Name);
-
+        // Inicializo el formulario de procesamiento
+        // y le paso la ruta de todas las imagenes seleccionadas
         var form = new FormProcessing()
         {
-            ImageFiles = images.ToArray()
+            ImageFiles = GetImages()
         };
-        form.ShowDialog();
+
+        // Muestro la ventana nueva y espero su resultado
+        // En caso de ser exitoso, limpio la lista de registros
+        if (form.ShowDialog() == DialogResult.OK)
+            listFilesLocation.Items.Clear();
     }
 
     #endregion

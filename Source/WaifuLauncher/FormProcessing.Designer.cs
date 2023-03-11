@@ -32,7 +32,7 @@
             workerProcessing = new System.ComponentModel.BackgroundWorker();
             progressBar = new ProgressBar();
             labelStatus = new Label();
-            button1 = new Button();
+            btnCancel = new Button();
             textBoxLog = new RichTextBox();
             imageList = new ImageList(components);
             SuspendLayout();
@@ -62,15 +62,16 @@
             labelStatus.TabIndex = 1;
             labelStatus.Text = "Iniciando proceso...";
             // 
-            // button1
+            // btnCancel
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(571, 288);
-            button1.Name = "button1";
-            button1.Size = new Size(114, 42);
-            button1.TabIndex = 2;
-            button1.Text = "Cancelar";
-            button1.UseVisualStyleBackColor = true;
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.Location = new Point(571, 288);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(114, 42);
+            btnCancel.TabIndex = 2;
+            btnCancel.Text = "Cancelar";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // textBoxLog
             // 
@@ -97,7 +98,7 @@
             ClientSize = new Size(697, 342);
             ControlBox = false;
             Controls.Add(textBoxLog);
-            Controls.Add(button1);
+            Controls.Add(btnCancel);
             Controls.Add(labelStatus);
             Controls.Add(progressBar);
             MinimumSize = new Size(520, 300);
@@ -116,7 +117,7 @@
         private System.ComponentModel.BackgroundWorker workerProcessing;
         private ProgressBar progressBar;
         private Label labelStatus;
-        private Button button1;
+        private Button btnCancel;
         private RichTextBox textBoxLog;
         internal ImageList imageList;
     }
